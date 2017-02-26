@@ -1,0 +1,22 @@
+{extend name="./layout/base" /}
+
+{block name="body"}
+
+{include file="./common/nav"}
+
+<div class="container mt-20 bg-fff pt-15-pb-15">
+    <div class="row">
+        <div class="col-lg-12">
+            <a href="{:url('addons/addons/getList')}">&lt;返回列表</a>
+        </div>
+
+        <div class="col-lg-12">
+            <a href="{:aurl('wechatmenu')}" class="btn btn-primary">点我进入</a>
+        </div>
+
+    </div>
+</div>
+
+{include file="./common/footer"}
+
+{/block}
