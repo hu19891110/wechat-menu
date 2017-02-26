@@ -88,6 +88,10 @@ class Index extends Base
     {
         $menus = Menus::where(['fid' => 0])->order('menu_sort', 'asc')->select();
 
+        if (! $menus) {
+            return json(['error' => '请先添加菜单！']);
+        }
+
         $container = [];
 
         foreach ($menus as $menu) {
