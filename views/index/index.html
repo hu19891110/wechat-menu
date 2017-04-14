@@ -201,14 +201,10 @@
         $('.sync-menu').click(function () {
             layer.load(1, {shade: [0.5,'#fff']});
             $.post("{:aurl('wechatmenu/index/sync')}", function (data) {
-                if (typeof (data.success) != 'undefined') {
-                    layer.msg(data.success);
-                } else {
-                    layer.msg(data.error);
-                }
+                layer.msg(data.msg);
                 setTimeout(function () {
                     layer.closeAll();
-                }, 1000);
+                }, 1500);
             }, 'json');
         });
     });

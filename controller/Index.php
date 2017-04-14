@@ -1,6 +1,5 @@
 <?php namespace addons\wechatmenu\controller;
 
-use think\Exception;
 use think\Validate;
 use app\wefee\Tree;
 use app\common\controller\Base;
@@ -126,7 +125,7 @@ class Index extends Base
 
         try {
             $response = Tree::wechat()->menu->add($container);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $this->error($e->getMessage());
         }
 
