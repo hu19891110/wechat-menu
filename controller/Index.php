@@ -27,11 +27,8 @@ class Index extends Base
         $data = request()->only([
             'fid', 'menu_name', 'menu_type', 'menu_value',
         ]);
-
         $data = $this->validator($data);
-
         Menus::create($data);
-
         $this->success('操作成功');
     }
 
@@ -89,7 +86,7 @@ class Index extends Base
         $menus = Menus::where(['fid' => 0])->order('menu_sort', 'asc')->select();
 
         if (! $menus) {
-            return json(['error' => '请先添加菜单！']);
+            $this->wefeeResponse('请先添加菜单', 403);
         }
 
         $container = [];
@@ -125,15 +122,13 @@ class Index extends Base
 
         try {
             $response = Tree::wechat()->menu->add($container);
+            if ($response->errcode == 0) {
+                $this->wefeeResponse('推送成功');
+            }
+            $this->wefeeResponse($response->errmsg, 500);
         } catch (\Exception $e) {
-            $this->error($e->getMessage());
+            $this->wefeeResponse($e->getMessage(), $e->getCode());
         }
-
-        if ($response->errcode == 0) {
-            return json(['success' => '推送成功']);
-        }
-
-        return json(['error' => $response->errmsg]);
     }
 
 }
